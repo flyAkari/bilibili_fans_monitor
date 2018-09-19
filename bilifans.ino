@@ -55,8 +55,8 @@ void setup()
 
 void loop()
 {
-  //此处感谢av30129522视频作者的开源代码
-  if (WiFi.status() == WL_CONNECTED) {
+  if (WiFi.status() == WL_CONNECTED) //此处感谢av30129522视频作者的开源代码
+  {
     HTTPClient http;
     http.begin("http://api.bilibili.com/x/relation/stat?vmid=" + biliuid);
     auto httpCode = http.GET();
@@ -77,11 +77,10 @@ void loop()
       delay(1000);
     }
   }
-  if (Serial.available())
+  if (Serial.available())   //Test number display
   {
     Serial.println("available");
     char ch = Serial.read();
-    Serial.println(ch);
     if (ch == '\n')
     {
       displayNumber(number);
@@ -90,9 +89,7 @@ void loop()
     }
     else
     {
-      Serial.println(number);
       number = (number * 10) + ch - '0';
-      Serial.println(number);
     }
   }
 }
