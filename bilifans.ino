@@ -26,7 +26,7 @@ const char* ssid     = "YourWiFiName";     //WiFi名
 const char* password = "YourWiFiPassword"; //WiFi密码
 String biliuid       = "751219";           //bilibili UID
 //----------------------------------------------------
-DynamicJsonDocument jsonBuffer(200);
+DynamicJsonDocument jsonBuffer(400);
 WiFiClient client;
 Ticker blinker;
 
