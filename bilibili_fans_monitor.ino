@@ -179,7 +179,7 @@ void loop()
             }
         }
     }else{
-        Serial.println("[WiFi] Waiting for reconnect...");
+        Serial.println("[WiFi] Waiting to reconnect...");
         errorCode(0x1);
     }
     delay(1000);
