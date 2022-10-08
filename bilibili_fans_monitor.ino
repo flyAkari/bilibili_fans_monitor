@@ -42,10 +42,16 @@
 #include <SPI.h>
 #include <EEPROM.h>
 
+char sta_ssid[32] = {0};          //暂存WiFi名
+char sta_password[64] = {0};      //暂存WiFi密码
+const char *AP_NAME = "flyAkari"; //自定义8266AP热点名
+
 /*#################################### EEPROM #########################################*/
 typedef struct
 {                  //存储配置结构体
     char uid[11];
+    char c_ssid[32];
+    char c_pwd[64];
 } config_type;
 config_type config;
 
@@ -70,12 +76,12 @@ void loadConfig()
     {
         *(p + i) = EEPROM.read(i);
     }
+    strcpy(sta_ssid, config.c_ssid);
+    strcpy(sta_password, config.c_pwd);
 }
 
 /*#################################### Web配置 #########################################*/
-char sta_ssid[32] = {0};          //暂存WiFi名
-char sta_password[64] = {0};      //暂存WiFi密码
-const char *AP_NAME = "flyAkari"; //自定义8266AP热点名
+
 //配网及目标日期设定html页面
 const char *page_html = "\
 <!DOCTYPE html>\r\n\
@@ -119,6 +125,7 @@ void handleRootPost()
     {
         Serial.print("ssid:");
         strcpy(sta_ssid, server.arg("ssid").c_str());
+        strcpy(config.c_ssid, sta_ssid);
         Serial.println(sta_ssid);
     }
     else
@@ -131,6 +138,7 @@ void handleRootPost()
     {
         Serial.print("password:");
         strcpy(sta_password, server.arg("password").c_str());
+        strcpy(config.c_pwd, sta_password);
         Serial.println(sta_password);
     }
     else
